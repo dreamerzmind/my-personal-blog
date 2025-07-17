@@ -6,13 +6,15 @@ let BlogPostsData = [{
     date: 'July 1, 2025',
     author: 'Manal Ibrahim',
     content: 'This is a simple blog post.',
+    status: "Published";
     tags: ['typescript', 'react', 'blog']
 }, {
     id: '2',
     title: 'Creating My Personal Blog2',
     date: 'July 1, 20252',
     author: 'Manal Ibrahim2',
-    content: 'This is a simple blog post.',
+    content: 'This is a simple blog post about weather.',
+    status: "Draft";
     tags: ['typescript', 'react', 'blog']
 }, {
     id: '3',
@@ -20,6 +22,7 @@ let BlogPostsData = [{
     date: 'July 1, 20253',
     author: 'Manal Ibrahim3',
     content: 'This is a simple blog post.',
+    status: "Published";
     tags: ['typescript', 'react', 'blog']
 }]
 
@@ -29,4 +32,8 @@ export function getBlogs() {
 
 export function addBlog(post: BlogPost) {
     BlogPostsData = [post, ...BlogPostsData]
+}
+
+export function BlogStatusBadge(status) {
+    return BlogStatusBadge;
 }

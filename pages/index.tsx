@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { BlogPosts } from "@/types/blogs";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
+import { BlagStatusBadge } from "@components/blog/BlogStatusBadge";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,8 @@ interface PageProps{
           }}>
             <h2 key={item.id}>{item.title}</h2>
             <h2 key={item.id}>{item.author}</h2>
+            <h2 key={item.id}>{item.content}</h2>
+            <h2 key={item.id}>{item.status)</h2>
           </div>
         })}
 

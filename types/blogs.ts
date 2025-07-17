@@ -4,5 +4,6 @@ export interface BlogPosts {
     date: string;
     author: string;
     content: string;
+    status: "published" | "draft";
     tags?: string[];
 }
