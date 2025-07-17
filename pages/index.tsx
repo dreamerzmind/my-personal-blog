@@ -1,5 +1,8 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
+import { BlogPosts } from "@/types/blogs";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { useRouter } from "next/router";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,11 +14,38 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function Home() {
+
+interface PageProps{
+    blogs: BlogPosts[]
+  }
+  
+  export const getStaticProps : GetStaticProps<PageProps>= (async () => {
+    const data = await fetch('http://localhost:3000/api/blogs');
+    const blogs = await data.json();    
+    console.log("data is ", data);
+  
+    return { props: { blogs } }
+  }) satisfies GetStaticProps<{
+    blogs: BlogPosts[]
+  }>
+  
+  export default function Home({
+    blogs,
+  }: InferGetStaticPropsType<typeof getStaticProps>) {
+    const router = useRouter();
   return (
     <div
       className={`${geistSans.className} ${geistMono.className} font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20`}
     >
+    {blogs && blogs.map(item => {
+          return <div onClick={()=>{
+            router.push(`blog/${item.id}`)
+          }}>
+            <h2 key={item.id}>{item.title}</h2>
+            <h2 key={item.id}>{item.author}</h2>
+          </div>
+        })}
+
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
@@ -25,6 +55,7 @@ export default function Home() {
           height={38}
           priority
         />
+
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
             Get started by editing{" "}
